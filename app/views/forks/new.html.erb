@@ -1,0 +1,34 @@
+<% if @fork.errors.any? %>
+      <ul>
+      <% @fork.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+<% end %>
+
+
+<p>Sure to fork(create) this project?</p>
+<!--
+test:<%= '#{@prj} test' %><br />
+pid:<%= params[:pid] %><br />
+uid:<%= params[:uid] %><br />
+fork:<%= @fork %><br />
+-->
+
+
+<% pid = params[:pid] %>
+<% uid = params[:uid] %>
+<!--
+<% usr = params[:user] %>
+<% prj = params[:prj] %>
+-->
+<%= form_for @fork, :url => forks_path do |f| %>
+	<%= f.hidden_field :project_id, :value => pid %>
+	<%= f.hidden_field :user_id, :value => uid %>
+<!--
+	<%= f.hidden_field :project, :value => prj %>
+	<%= f.hidden_field :user, :value => usr %>
+-->
+    <%= f.submit "Create" %>
+<% end %>
+

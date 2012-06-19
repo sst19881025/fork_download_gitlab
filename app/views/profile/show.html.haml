@@ -1,0 +1,69 @@
+.profile_avatar_holder
+  = image_tag gravatar_icon(@user.email, 90), :class => "styled_image"
+%h3
+  = @user.name
+  %br
+  %small
+    = @user.email
+
+
+%hr
+
+= form_for @user, :url => profile_update_path, :method => :put, :html => { :class => "edit_user form-horizontal" }  do |f|
+  -if @user.errors.any?
+    %div.alert-message.block-message.error
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  .row
+    .span7
+      .control-group
+        = f.label :name, :class => "control-label"
+        .controls
+          = f.text_field :name, :class => "input-xlarge"
+          %span.help-block Enter your name, so people you know can recognize you.
+      .control-group
+        = f.label :email, :class => "control-label"
+        .controls
+          = f.text_field :email, :class => "input-xlarge"
+          %span.help-block We also use email for avatar detection.
+
+      %hr
+      .control-group
+        = f.label :skype, :class => "control-label"
+        .controls= f.text_field :skype, :class => "input-xlarge"
+      .control-group
+        = f.label :linkedin, :class => "control-label"
+        .controls= f.text_field :linkedin, :class => "input-xlarge"
+      .control-group
+        = f.label :twitter, :class => "control-label"
+        .controls= f.text_field :twitter, :class => "input-xlarge"
+      .control-group
+        = f.label :bio, :class => "control-label"
+        .controls
+          = f.text_area :bio, :rows => 6, :class => "input-xlarge", :maxlength => 250
+          %span.help-block Tell us about yourself in fewer than 250 characters.
+    .span5.right
+
+      %p.alert.alert-info
+        %strong Tip:
+        You can change your avatar at gravatar.com
+
+      %h4
+        Personal projects:
+        %small.right
+          %span= current_user.my_own_projects.count
+          of
+          %span= current_user.projects_limit
+      .progress
+        .bar{:style => "width: #{current_user.projects_limit_percent}%;"}
+
+      %h4
+        SSH public keys:
+        %small.right
+          %span= current_user.keys.count
+
+      = link_to "Add Public Key", new_key_path, :class => "btn small right"
+
+  .form-actions
+    = f.submit 'Save', :class => "btn-primary btn"

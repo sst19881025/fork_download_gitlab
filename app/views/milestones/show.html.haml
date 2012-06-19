@@ -1,0 +1,69 @@
+%h3
+  Milestone ##{@milestone.id}
+  %small
+    = @milestone.expires_at
+
+  %span.right
+    = link_to 'Browse Issues', project_issues_path(@milestone.project, :milestone_id => @milestone.id), :class => "btn edit-milestone-link small"
+    - if can?(current_user, :admin_milestone, @project)
+      = link_to edit_project_milestone_path(@project, @milestone), :class => "btn small" do
+        %i.icon-edit
+        Edit
+
+.back_link
+  = link_to project_milestones_path(@project) do
+    &larr; To milestones list
+
+.main_box
+  .top_box_content
+    %h5
+      - if @milestone.closed
+        .alert-message.error.status_info Closed
+      - else
+        .alert-message.success.status_info Open
+      = @milestone.title
+      %small.right= @milestone.expires_at
+
+  .middle_box_content
+    %h5
+      Progress:
+      %small
+        #{@milestone.issues.opened.count} open
+        &ndash;
+        #{@milestone.issues.closed.count} closed
+    .progress.progress-success
+      .bar{:style => "width: #{@milestone.percent_complete}%;"}
+
+
+  - if @milestone.description.present?
+    .bottom_box_content
+      = preserve do
+        = markdown @milestone.description
+
+.row
+  .span6
+    %table.admin-table
+      %thead
+        %th Open Issues
+      - @issues.each do |issue|
+        %tr
+          %td
+            = link_to [@project, issue] do
+              = image_tag gravatar_icon(issue.assignee_email, 16), :width => "16"
+              &nbsp;
+              %span.badge.badge-info ##{issue.id}
+              &ndash;
+              = truncate issue.title, :length => 60
+    %br
+    = paginate @issues, :theme => "gitlab"
+
+  .span6
+    %table.admin-table
+      %thead
+        %th Participants
+      - @users.each do |user|
+        %tr
+          %td
+            = image_tag gravatar_icon(user.email, 24), :width => "24"
+            &nbsp;
+            = user.name

@@ -1,0 +1,63 @@
+.user_new
+  = form_for [:admin, @admin_user] do |f|
+    -if @admin_user.errors.any?
+      #error_explanation
+        %ul
+          - @admin_user.errors.full_messages.each do |msg|
+            %li= msg
+
+    .row
+      .span6
+        .clearfix
+          = f.label :name
+          .input
+            = f.text_field :name
+            %span.help-inline * required
+        .clearfix
+          = f.label :email
+          .input
+            = f.text_field :email
+            %span.help-inline * required
+        .clearfix
+          = f.label :password
+          .input= f.password_field :password
+        .clearfix
+          = f.label :password_confirmation
+          .input= f.password_field :password_confirmation
+        %hr
+        .clearfix
+          = f.label :skype
+          .input= f.text_field :skype
+        .clearfix
+          = f.label :linkedin
+          .input= f.text_field :linkedin
+        .clearfix
+          = f.label :twitter
+          .input= f.text_field :twitter
+      .span6
+        .clearfix
+          = f.label :projects_limit
+          .input= f.text_field :projects_limit, :class => "small_input"
+
+        .alert
+          .clearfix
+            %p Give user ability to manage application.
+            = f.label :admin, :class => "checkbox" do
+              = f.check_box :admin
+              %span Administrator
+        - unless @admin_user.new_record?
+          .alert.alert-error
+            - if @admin_user.blocked
+              %span
+                = link_to 'Unblock', unblock_admin_user_path(@admin_user), :method => :put, :class => "btn small"
+                This user is blocked and is not able to login GitLab
+            - else
+              %span
+                = link_to 'Block', block_admin_user_path(@admin_user), :confirm => 'USER WILL BE BLOCKED! Are you sure?', :method => :put, :class => "btn small danger"
+                Blocked user will removed from all projects &amp; will not be able to login to GitLab.
+    .actions
+      = f.submit 'Save', :class => "btn primary"
+      - if @admin_user.new_record?
+        = link_to 'Cancel', admin_users_path, :class => "btn"
+      - else
+        = link_to 'Cancel', admin_user_path(@admin_user), :class => "btn"

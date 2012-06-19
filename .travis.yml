@@ -1,0 +1,20 @@
+env:
+  - DB=mysql
+  - DB=sqlite
+before_install:
+  - sudo apt-get install libicu-dev -y
+  - gem install charlock_holmes -v="0.6.8"
+  - echo "yes" | gem uninstall json ffi
+branches:
+  only:
+    - 'master'
+rvm:
+  - 1.9.3
+before_script:
+  - "cp config/database.yml.$DB config/database.yml"
+  - "cp config/gitlab.yml.example config/gitlab.yml"
+  - "bundle exec rake db:create RAILS_ENV=test"
+  - "bundle exec rake db:migrate RAILS_ENV=test"
+  - "bundle exec rake db:seed_fu RAILS_ENV=test"
+  - "sh -e /etc/init.d/xvfb start"
+script: "bundle exec rake travis"

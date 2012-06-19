@@ -1,0 +1,17 @@
+<p> new new new!!!laaaaaaallla </p>
+
+project_owner_id:<%= @prj.owner_id %><br />
+project_owner_email:<%= @prj.owner.email %><br />
+project_owner_created_at:<%= @prj.owner.created_at %><br /><br />
+
+project_id:<%= @prj.id %><br />
+project_created_at:<%= @prj.created_at %><br /><br />
+
+user_id:<%= @user.id %><br />
+user_email:<%= @user.email %><br />
+user_created_at:<%= @user.created_at %><br /><br />
+
+fork_pid:<%= @fork.project_id %><br />
+fork_uid:<%= @fork.user_id %><br /><br /><br /><br />
+
+<%= link_to 'Back to Forks', dofork_path %>

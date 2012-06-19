@@ -1,0 +1,34 @@
+= render "project_head"
+
+.entry
+  .row
+    .span7
+      .form-horizontal
+        .input-prepend
+          %span.add-on git clone
+          = text_field_tag :project_clone, @project.url_to_repo, :class => "one_click_select span5"
+    .span4.right
+      .right
+        - if can? current_user, :download_code, @project
+          = link_to archive_project_repository_path(@project), :class => "btn small padded" do
+            %i.icon-download-alt
+            Download
+        - if @project.merge_requests_enabled && can?(current_user, :write_merge_request, @project)
+          = link_to new_project_merge_request_path(@project), :title => "New Merge Request", :class => "btn small padded" do
+            Merge Request
+        - if @project.issues_enabled && can?(current_user, :write_issue, @project)
+          = link_to new_project_issue_path(@project), :title => "New Issue", :class => "btn small" do
+            Issue
+        - if true
+          = link_to pass_var_path(:pid => @project.id, :uid => current_user), :title => "New Fork", :class => "btn small" do
+            Fork
+= render "events/event_last_push", :event => @last_push
+- unless @events.blank?
+  %br
+  %h5.cgray
+    %span.ico.activities
+    Recent Activity
+  %hr
+  .content_list= render @events
+
+

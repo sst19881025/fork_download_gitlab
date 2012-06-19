@@ -1,0 +1,15 @@
+!!! 5
+%html{ :lang => "en"}
+  = render "layouts/head"
+  %body{:class => "#{app_theme} admin"}
+    = render "layouts/flash"
+    = render "layouts/head_panel", :title => "Admin area"
+    .container
+      %nav.main_menu
+        = link_to "Stats", admin_root_path, :class => "home #{controller.controller_name == "dashboard" ? "current" : nil}"
+        = link_to "Projects", admin_projects_path, :class => controller.controller_name == "projects" ? "current" : nil
+        = link_to "Users", admin_users_path, :class => controller.controller_name == "users" ? "current" : nil
+        = link_to "Emails", admin_emails_path, :class => controller.controller_name == "mailer" ? "current" : nil
+        = link_to "Resque", "/info/resque"
+
+      .content= yield

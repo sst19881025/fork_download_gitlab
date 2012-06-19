@@ -1,0 +1,67 @@
+/**
+ * This file represent some UI that can be changed 
+ * during web app restyle or theme select. 
+ * 
+ * Next items should be placed there
+ * - link colors
+ * - header styles
+ * - main menu styles
+ *
+ */
+.ui_modern { 
+  nav.main_menu { 
+    background:none;
+    box-shadow:none;
+    @include border-radius(0px);
+    border:none;
+    border-bottom:2px solid #456;
+
+    a { 
+      border:none;
+
+      &.current {
+        border-bottom:2px solid #f90;
+        background-color:#fff;
+      }
+    }
+  }
+
+  /*
+   * Common styles
+   *
+   */
+  a {
+    color: #E28934;
+    &:hover { 
+      text-decoration:none; 
+      color: #f90;
+    }
+  }
+
+  .btn { 
+    &.primary, 
+    &.btn-primary { 
+      border-color:#C60;
+      background:#D70;
+
+      &:hover { 
+        background:#F90;
+      }
+    }
+  }
+
+  .alert-info { 
+    border-color:#FDA;
+    background:#FED;
+    color:#D70;
+  }
+  
+
+  .progress .bar { 
+    background:#D80;
+  }
+
+  .back_link { 
+    color:#D80;
+  }
+}

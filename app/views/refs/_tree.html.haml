@@ -1,0 +1,69 @@
+%ul.breadcrumb
+  %li
+    %span.arrow
+    = link_to tree_project_ref_path(@project, @ref, :path => nil), :remote => true do
+      = @project.name
+  - tree.breadcrumbs(6) do |link|
+    \/
+    %li= link
+.clear
+%div.tree_progress
+#tree-content-holder
+  - if tree.is_blob?
+    = render :partial => "refs/tree_file", :locals => { :name => tree.name, :content => tree.data, :file => tree }
+  - else
+    - contents = tree.contents
+    %table#tree-slider.bordered-table.table
+      %thead
+        %th Name
+        %th Last Update
+        %th
+          Last commit
+          = link_to "History", tree.history_path, :class => "right"
+
+      - if tree.up_dir?
+        %tr{ :class => "tree-item", :url => tree.up_dir_path }
+          %td.tree-item-file-name
+            = image_tag "file_empty.png"
+            = link_to "..", tree.up_dir_path, :remote => :true
+          %td
+          %td
+
+      - contents.select{ |i| i.is_a?(Grit::Tree)}.each do |content|
+        = render :partial => "refs/tree_item", :locals => { :content => content }
+      - contents.select{ |i| i.is_a?(Grit::Blob)}.each do |content|
+        = render :partial => "refs/tree_item", :locals => { :content => content }
+      - contents.select{ |i| i.is_a?(Grit::Submodule)}.each do |content|
+        = render :partial => "refs/submodule_item", :locals => { :content => content }
+
+    - if content = contents.select{ |c| c.is_a?(Grit::Blob) and c.name =~ /^readme/i }.first
+      #tree-readme-holder
+        %h3= content.name
+        .readme
+          - if content.name =~ /\.(md|markdown)$/i
+            = preserve do
+              = markdown(content.data)
+          - else
+            = simple_format(content.data)
+
+- if params[:path]
+  - history_path = tree_file_project_ref_path(@project, @ref, params[:path])
+- else
+  - history_path = tree_project_ref_path(@project, @ref)
+:javascript
+  $(function(){
+    $('select#branch').selectmenu({style:'popup', width:200});
+    $('select#tag').selectmenu({style:'popup', width:200});
+    $('.project-refs-select').chosen();
+
+    history.pushState({ path: this.path }, '', "#{history_path}")
+  });
+
+
+- if params[:path] && request.xhr?
+  :javascript
+    $(window).unbind('popstate');
+    $(window).bind('popstate', function() {
+      if(location.pathname.search("tree") != -1) {
+        $.ajax({type: "GET", url: location.pathname, dataType: "script"})}
+        else { location.href = location.pathname;}});

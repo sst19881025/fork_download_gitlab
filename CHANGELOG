@@ -1,0 +1,134 @@
+v 2.5.0
+  - UI polished
+  - Git blame for file
+  - Bugfix
+  - Email in resque
+  - Better test coverage
+
+v 2.4.0
+  - Admin area stats page
+  - Ability to block user
+  - Simplified dashboard area
+  - Improved admin area
+  - Bootstrap 2.0
+  - Responsive layout
+  - Big commits handling
+  - Perfomance improved
+  - Milestones
+
+v 2.3.1
+  - Issues pagination
+  - ssl fixes
+  - Merge Request pagination
+
+v 2.3.0
+  - Dashboard r1
+  - Search r1
+  - Project page
+  - Close merge request on push
+  - Persist MR diff after merge
+  - mysql support
+  - Documentation
+
+v 2.2.0
+  - We’ve added support of LDAP auth
+  - Improved permission logic (4 roles system)
+  - Protected branches (now only masters can push to protected branches)
+  - Usability improved
+  - twitter bootstrap integrated
+  - compare view between commits
+  - wiki feature
+  - now you can enable/disable issues, wiki, wall features per project
+  - security fixes
+  - improved code browsing (ajax branch switch etc)
+  - improved per-line commenting
+  - git submodules displayed
+  - moved to rails 3.2
+  - help section improved
+
+v 2.1.0
+  - Project tab r1
+  - List branches/tags
+  - per line comments
+  - mass user import
+
+v 2.0.0
+  - gitolite as main git host system
+  - merge requests
+  - project/repo access 
+  - link to commit/issue feed
+  - design tab
+  - improved email notifications
+  - restyled dashboard
+  - bugfix
+
+v 1.2.2
+  - common config file gitlab.yml
+  - issues restyle
+  - snippets restyle
+  - clickable news feed header on dashboard
+  - bugfix
+
+v 1.2.1
+  - bugfix
+
+v 1.2.0
+  - new design
+  - user dashboard
+  - network graph
+  - markdown support for comments
+  - encoding issues
+  - wall like twitter timeline
+
+v 1.1.0
+  - project dashboard
+  - wall redesigned
+  - feature: code snippets
+  - fixed horizontal scroll on file preview
+  - fixed app crash if commit message has invalid chars
+  - bugfix & code cleaning
+
+v 1.0.2
+  - fixed bug with empty project 
+  - added adv validation for project path & code
+  - feature: issues can be sortable
+  - bugfix
+  - username dispalyed on top panel
+
+v 1.0.1
+  - fixed: with invalid source code for commit
+  - fixed: lose branch/tag selection when use tree navigateion
+  - when history clicked - display path
+  - bug fix & code cleaning
+
+v 1.0.0
+  - bug fix
+  - projects preview mode
+
+v 0.9.6
+  - css fix
+  - new repo empty tree until restart server - fixed
+
+v 0.9.4
+  - security improved
+  - authorization improved
+  - html escaping
+  - bug fix
+  - increassed test coverage
+  - design improvements
+
+v 0.9.1
+  - increassed test coverage
+  - design improvements
+  - new issue email notification
+  - updated app name
+  - issue redesigned
+  - issue can be edit
+
+v 0.8.0
+  - sytax highlight for main file types
+  - redesign
+  - stability
+  - security fixes
+  - increased test coverage
+  - email notification
